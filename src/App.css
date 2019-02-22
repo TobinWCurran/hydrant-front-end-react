@@ -1,33 +1,113 @@
-.App {
-  text-align: center;
+
+#hydrant-table th:first-of-type,
+#hydrant-table th:nth-last-of-type(2),
+#hydrant-table tr td:first-of-type,
+#hydrant-table tr td:nth-of-type(2){
+	width: 75px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+#upload-preview,
+#upload-preview canvas{
+	display: block;
+  	margin-right: auto;
+  	margin-left: auto;
   }
-  to {
-    transform: rotate(360deg);
-  }
+
+#upload-preview canvas {
+	max-width: 100%;
+	margin-bottom: 1rem;
+	border: 4px solid #fefefe;
+	border-radius: 0;
+	-webkit-box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+			box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
+	line-height: 0;
 }
+
+#upload-modal-button-container{
+	display: block;
+	text-align: center;
+}
+
+.map-card .button-group .button{
+	font-size: 1rem;
+}
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+
+	.hydrant-card,
+	.map-card{
+		margin: 0.5rem;
+		padding: 0.5rem;
+	}
+
+	#all-by-id-modal{
+		padding: 0;
+	}
+	
+	.hydrant-card p,
+	.map-card p,
+	.map-card dt,
+	.map-card dd{
+		font-size: 0.75rem;
+		line-height: 1.0rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.map-card dt,
+	.map-card dd{
+		float: left;
+	}
+
+	.map-card dt{
+		clear: left;
+		margin-right: 0.5rem;
+	}
+
+	.map-card dt:after{
+		content: ": ";
+	}
+	
+	.hydrant-card h3,
+	.map-card h3{
+		font-size: 1rem;
+	}
+	
+	.hydrant-card h4,
+	.map-card h4{
+		float: left;
+		font-size: .75rem;
+	}
+	
+	.hydrant-card h5,
+	.map-card h5{
+		float: right;
+		font-size: .75rem;
+		line-height: 1.4;
+		margin-top: 0;
+		margin-bottom: 0.5rem;
+	
+	}
+
+	/* #all-by-id-footer{
+		padding-left: -1rem;
+		background-color: #000000;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: auto;
+	} */
+
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {}
+
+/* Medium only */
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {}
+
+/* Large and up */
+@media screen and (min-width: 64em) {}
+
+/* Large only */
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {}

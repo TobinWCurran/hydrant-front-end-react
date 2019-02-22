@@ -1,0 +1,34 @@
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+
+	.hydrant-card{
+		margin: 0.5rem;
+		padding: 0.5rem;
+	}
+
+	#all-by-id-modal{
+		padding: 0;
+	}
+	
+	.map-card dt,
+	.map-card dd{
+		font-size: 0.75rem;
+		line-height: 1.0rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.map-card dt,
+	.map-card dd{
+		float: left;
+	}
+
+	.map-card dt{
+		clear: left;
+		margin-right: 0.5rem;
+	}
+
+	.map-card dt:after{
+		content: ": ";
+	}
+
+}
