@@ -109,7 +109,9 @@ class ClosestHydrant extends Component {
     }
 
     componentWillUnmount() {
-        this.ajaxClosestHydrant.abort();
+        if(this.ajaxClosestHydrant){
+            this.ajaxClosestHydrant.abort();
+        }
     }
 
     render(){
@@ -147,22 +149,13 @@ class ClosestHydrant extends Component {
                             Get Closest
                         </button>
                         { this.state.closestHydrant.isLoaded
-                            ?   <button 
-                                    id="upload-image-button"
-                                    className="button float-right" 
-                                    data-open="upload-modal" 
-                                    style={buttonStyle} >
-                                        Take Photo
-                                </button>
+                            ?   <PhotoUploader  
+                                    closestHydrant={this.state.closestHydrant} 
+                                    thisLocation={this.state.thisLocation} /> 
                             :   null
                         }
                     </CardSection>
-                    { this.state.closestHydrant.isLoaded
-                        ?   <PhotoUploader  
-                                closestHydrant={this.state.closestHydrant} 
-                                thisLocation={this.state.thisLocation} /> 
-                        :   null
-                    }
+                    
                 </Card>
             </>
         )

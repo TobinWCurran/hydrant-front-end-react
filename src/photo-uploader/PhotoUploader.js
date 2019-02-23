@@ -15,7 +15,7 @@ class PhotoUploader extends Component {
                 isLoaded: false
             },
             hydrant: {
-                id: props.closestHydrant.data.id,
+                id: props.closestHydrant.data.hydrantId,
                 lat: props.closestHydrant.data.lat,
                 lon: props.closestHydrant.data.lon,
                 isLoaded: true
@@ -23,99 +23,110 @@ class PhotoUploader extends Component {
         };
     }
 
-    handleOnChange = (file) => {
-        this.setState((prevState) => ({
-            ...prevState,
-            photo: {
-                ...prevState.photo,
-                file: file,
-                isLoaded: true
+    handleOnChange = (event) => {
+        //(setState(updater, callback))
+        const self = this;
+        const options = {
+            //maxWidth: result.width(),
+            canvas: false,
+            //pixelRatio: window.devicePixelRatio,
+            //downsamplingRatio: 0.5,
+            orientation: true,
+            maxWidth: 1200
+        }
+        const thisPhoto = event.target.files[0];
+        //console.log('thisPhoto: ', thisPhoto)
+        
+        loadImage(
+            thisPhoto,
+            function (img) {
+                img.toBlob(function (blob) {
+                    self.setState( (prevState) => ({
+                        ...prevState,
+                        photo: {
+                            ...prevState.photo,
+                            file: URL.createObjectURL(blob),
+                            isLoaded: true
+                        }
+                    }));
+                }, 'image/jpeg');
+            },
+            options // Options
+        );
+    }
+
+    testHandleFileUploadSubmit = () => {
+        console.log(this.state)
+        const formDataObject = {
+            hydrantId: this.state.hydrant.id,
+            imgLat: this.state.photo.lat,
+            imglon: this.state.photo.lon,
+            hydrantLat: this.state.hydrant.lat,
+            hydrantLon: this.state.hydrant.lon,
+            file: this.state.photo.file
+        }
+        console.log('formDataObject: ', formDataObject);
+    }
+
+    handleFileUploadSubmit = () => {
+
+        const formData = new FormData();
+        const formDataObject = {
+            hydrantId: this.state.hydrant.id,
+            imgLat: this.state.photo.lat,
+            imglon: this.state.photo.lon,
+            hydrantLat: this.state.hydrant.lat,
+            hydrantLon: this.state.hydrant.lon,
+            file: this.state.photo.file
+        }
+        for(let key in formDataObject){
+            formData.append(key, formDataObject[key]);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: process.env.REACT_APP_API_URL + '/api/photos',
+    
+            // The key needs to match your method's input parameter (case-sensitive).
+            data: formData,
+            contentType: false, //'multipart/form-data',
+            dataType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                // alert(data.success); 
+                // $('#upload-modal').foundation('close');
+                // $('#upload-response').empty().prepend(data.success);
+                // $('#upload-response-modal').foundation('open');
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
             }
-        }));
+        });
+    }
+
+    showPhoto = () => {
+        if (this.state.photo.file !== null){
+            return <img src={this.state.photo.file} alt="test" />
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.state.photo.file !== null){
+            this.testHandleFileUploadSubmit();
+        }
     }
 
     render() {
         return (
             <>
                 <PhotoUploaderInput onChange={this.handleOnChange} />
-                {/* <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
+                {/* {this.showPhoto()}
+                <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
             </>
         )
     }
 
-}
-
-
-//document.querySelector('.file-select').addEventListener('change', handleFileUploadChange);
-//document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit);
-
-var selectedFile;
-let formData = new FormData();
-
-function handleFileUploadChange(e) {
-
-    selectedFile = e.target.files[0];
-
-    let options = {
-        //maxWidth: result.width(),
-        canvas: false,
-        //pixelRatio: window.devicePixelRatio,
-        //downsamplingRatio: 0.5,
-        orientation: true,
-        maxWidth: 1200
-    }
-
-    //formData = new FormData();
-
-    loadImage(
-        selectedFile,
-        function (img) {
-            $('#upload-preview').empty().append(img);
-            img.toBlob(function (blob) {
-                formData.append('hydrant', blob, 'upload.jpg');
-            }, 'image/jpeg');
-            $('.file-submit').show();
-        },
-        options // Options
-    );
-
-
-    //formData.append('hydrant', selectedFile);
-    formData.append('hydrantId', $('#hydrant-id').text());
-    formData.append('imgLat', $('#img-lat').val());
-    formData.append('imgLon', $('#img-lon').val());
-    formData.append('hydrantLat', $('#hydrant-lat').val());
-    formData.append('hydrantLon', $('#hydrant-lon').val());
-
-    //console.log('e.target', e.target);
-    //console.log('selectedFile', selectedFile);
-    //console.log("formData", formData);
-}
-
-function handleFileUploadSubmit(e) {
-
-    //console.log("formData", formData.entries());
-
-    $.ajax({
-        type: "POST",
-        url: process.env.REACT_APP_API_URL + '/api/photos',
-
-        // The key needs to match your method's input parameter (case-sensitive).
-        data: formData,
-        contentType: false, //'multipart/form-data',
-        dataType: false,
-        cache: false,
-        processData: false,
-        success: function (data) {
-            //alert(data.success); 
-            $('#upload-modal').foundation('close');
-            $('#upload-response').empty().prepend(data.success);
-            $('#upload-response-modal').foundation('open');
-        },
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
-    });
 }
 
 export default PhotoUploader;
