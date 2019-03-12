@@ -35,7 +35,7 @@ class PhotoAll extends Component {
             return (
                 <Card className={'hydrant-card'} key={item._id}>
                     <CardSection>
-                        <h3 id={'card-title-' + index}>{thisHydrant.streetName + ' ' + thisHydrant.suffix}</h3>
+                        <h3 id={'card-title-' + index}>{thisHydrant.street}</h3>
                         <h4><span id={'upload-date-span-' + index}>{thisUploadDate}</span></h4>
                         <h5><span id={'upload-time-span-' + index}>{thisUploadTime}</span></h5>
                     </CardSection>
@@ -48,8 +48,7 @@ class PhotoAll extends Component {
 
                         <p>
                             <strong>Location:</strong>&nbsp;<br />
-                            <span id="hydrant-street">{toTitleCase(thisHydrant.streetName)}</span>&nbsp;
-                            <span id="hydrant-street-suffix">{toTitleCase(thisHydrant.suffix)}</span><br />
+                            <span id="hydrant-street">{toTitleCase(thisHydrant.street)}</span>&nbsp;
                             <span id="loc-description">{cleanLocation(thisHydrant.locationDescription)}</span><br />
                             <span id="hydrant-city">{thisHydrant.city}</span>
                         </p>
