@@ -17,7 +17,7 @@ const ClosestHydrantInfo = (props) => {
                     <dt>Hydrant ID</dt>
                     <dd id={'hydrant-id'}>{props.closestHydrant.data.hydrantId}</dd>
                     <dt>Street</dt>
-                    <dd>{toTitleCase(thisHydrant.streetName) + ' ' + toTitleCase(thisHydrant.suffix)}</dd>
+                    <dd>{toTitleCase(thisHydrant.street)}</dd>
                     <dt>Location Description</dt>
                     <dd>{cleanLocation(thisHydrant.locationDescription)}</dd>
                     <dt>Hydrant Location</dt>
@@ -28,7 +28,6 @@ const ClosestHydrantInfo = (props) => {
             </div>
         </CardSection>
     )
-
 }
 
 export default ClosestHydrantInfo;
