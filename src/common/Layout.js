@@ -8,11 +8,7 @@ class Layout extends Component {
         return (
             <>
                 <NavigationHeader />
-                    <div className="grid-x">
-                        <div className="cell small-12 medium-8 medium-offset-2 large-4 large-offset-4">
-                            {this.props.children}
-                        </div>
-                    </div>
+                {this.props.children}
             </>
         );
     }

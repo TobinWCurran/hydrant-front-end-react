@@ -7,6 +7,10 @@ import './PhotoAll.css';
 
 class PhotoAll extends Component {
 
+    handleAllById = (event) => {
+        this.props.handleAllById(event);
+    }
+
     render() {
 
         const self = this;
@@ -42,7 +46,7 @@ class PhotoAll extends Component {
                     <img src={photoUrlBase + item.img_url} alt={thisHydrant.streetName + ' ' + thisHydrant.suffix} />
 
                     <CardSection className="hydrant-info">
-                        <a id="hydrant-link" className="button tiny float-right hydrant-link" href="#">All Photos of This Hydrant</a>
+                        <button id="hydrant-link" className="button tiny float-right hydrant-link" onClick={this.handleAllById} value={thisHydrant.hydrantId}>All Photos of This Hydrant</button>
                         <p>
                             <strong>Hydrant ID:</strong>&nbsp;<span id="hydrant-id">{thisHydrant.hydrantId}</span></p>
 

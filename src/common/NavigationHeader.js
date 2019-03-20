@@ -8,7 +8,9 @@ class NavigationHeader extends Component {
     componentDidMount() {
         $(document).foundation();
         $(document).on("click", ".top-bar li", function () {
-            $('.top-bar').css('display', 'none');
+            if(window.innerWidth <= 640){
+                $('.top-bar').css('display', 'none');
+            }
         });
     }
 
